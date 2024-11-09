@@ -1,0 +1,116 @@
+/* src/styles/Chatbot.css */
+.chatbot {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    height: 500px;
+    overflow-y: auto;
+}
+
+.page-container, .chatbot-welcome {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .chatbot-welcome {
+    flex-direction: column;
+    font-weight: bold;
+  }
+  .welcome-text {
+    font-size: 24px;
+    color: #333;
+    white-space: nowrap; /* Mantiene el texto en una sola línea */
+    overflow: hidden;    /* Oculta el contenido desbordante */
+    border-right: 2px solid #333; /* Simula el cursor */
+  }
+  .typing {
+    display: inline-block; /* Cambia a inline-block para permitir la animación de ancho */
+  }
+  
+  /* Efecto de parpadeo del cursor */
+  .blink-caret {
+    animation: blink-caret 0.75s step-end infinite;
+  }
+  
+  /* Animación de parpadeo del cursor */
+  @keyframes blink-caret {
+    50% { border-color: transparent; }
+  }
+  .chatbot-messages {
+    padding: 10px;
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .message {
+    max-width: 70%;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: small;
+  }
+  
+  .message.bot {
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+  }
+
+  .message.bot img {
+    width: 10%;
+    border-radius: 10px;
+    margin-bottom: 5px;
+  }
+
+  .message.user {
+    background-color: #EFF4FF;
+    align-self: flex-end;
+  }
+  
+  .message.bot span {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .chatbot-input {
+    display: flex;
+    border-top: 1px solid #ddd;
+    padding: 10px;
+  }
+  
+  .chatbot-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .chatbot-input button {
+    padding: 8px 12px;
+    background-color: #0078d4;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .message.bot .message-text {
+    background-color: #F3F3F3;
+    padding: 10px;
+    border-radius: 10px;
+    font-size: small;
+    display: block; 
+    align-self: flex-start; 
+    text-align: left; 
+    word-wrap: break-word; 
+    max-width: 70%;
+}
