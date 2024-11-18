@@ -1,2 +1,2 @@
-export const API_TOKEN = process.env.REACT_APP_API_TOKEN;
-export const API_URL = process.env.REACT_APP_API_URL;
+export const API_TOKEN = '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';
+export const API_URL = 'https://api.groq.com/openai/v1/chat/completions';

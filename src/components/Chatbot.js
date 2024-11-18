@@ -1,17 +1,15 @@
-// src/components/Chatbot.js
 import React, { useState, useEffect } from 'react';
 import '../styles/Chatbot.css';
 import logo from '../assets/logo.png';
 import { useRef } from 'react';
 import { marked } from 'marked';
-import { API_TOKEN, API_URL } from '../config/config';
 
 const Chatbot = () => {
   const [text2, setText2] = useState('');
   const [messages, setMessages] = useState([]);
   const [input, setInput] = useState('');
   const [isBotTyping, setIsBotTyping] = useState(true);
-  const [isWelcomeScreen, setIsWelcomeScreen] = useState(true); // Estado para controlar la pantalla de bienvenida
+  const [isWelcomeScreen, setIsWelcomeScreen] = useState(true); 
   const welcomeMessage = "Heello!";
   const typingSpeed = 100; 
   const indexRef = useRef(0);
@@ -27,13 +25,13 @@ const Chatbot = () => {
         };
         type();
 
-        return () => clearTimeout(timeoutRef.current); // Limpia el timeout al desmontar
+        return () => clearTimeout(timeoutRef.current);
     }, []);
 
   useEffect(() => {
     setTimeout(() => {
       setIsWelcomeScreen(false);
-      setMessages([{ text: 'Hello! How can I help you?', sender: 'bot' }]);
+      setMessages([{ text: 'Hola! Como puedo ayudarte?', sender: 'bot' }]);
       setIsBotTyping(false);
     }, 3000); 
   }, []);
@@ -44,24 +42,29 @@ const Chatbot = () => {
       setInput('');
       setIsBotTyping(true);
   
+      const url = 'http://localhost:8000/chat'; 
+      const body = JSON.stringify({
+        user_propmt: input,
+        thread_id: "12345"
+      });
+      console.log(body);
+
       try {
-        const body = JSON.stringify({
-          model: "llama-3.2-3b-preview",
-          messages: [{ role: "user", content: input }] 
-        });
-  
-        const response = await fetch(API_URL, {
+        const response = await fetch(url, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${API_TOKEN}`,
           },
           body,
         });
-  
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
         const data = await response.json();
-        const botReply = data.choices[0]?.message?.content || "I didn't understand that.";
-  
+        const botReply = data.response || "No entendí ello, discúlpame."; 
+        
         setMessages(prevMessages => [
           ...prevMessages,
           { text: botReply, sender: 'bot' }
@@ -71,7 +74,7 @@ const Chatbot = () => {
         console.error("Error fetching response:", error);
         setMessages(prevMessages => [
           ...prevMessages,
-          { text: "Sorry, there was an error processing your request.", sender: 'bot' }
+          { text: "Hubo un problema procesando tu consulta...", sender: 'bot' }
         ]);
       } finally {
         setIsBotTyping(false);
