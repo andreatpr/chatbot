@@ -42,7 +42,7 @@ const Chatbot = () => {
       setInput('');
       setIsBotTyping(true);
   
-      const url = 'http://localhost:8000/chat'; 
+      const url = 'https://9e3a-2800-200-ed40-a55-1d71-6d7b-5175-2f15.ngrok-free.app/chat'; 
       const body = JSON.stringify({
         user_propmt: input,
         thread_id: "12345"
